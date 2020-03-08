@@ -70,18 +70,22 @@
     }
 
     function loadProfile(students)  {
-        document.getElementById('Id').innerHTML += sessionStorage.getItem('sid');
-        document.getElementById('Name').innerHTML += students.Name;
-        document.getElementById('Email').innerHTML += students.Email;
-        document.getElementById('Gender').innerHTML += students.Gender;
-        document.getElementById('Address').innerHTML += students.Address;
+        document.getElementById('Id').innerHTML += '<font style="color: blue;">' + sessionStorage.getItem('sid') + '</font>';;
+        document.getElementById('Name').innerHTML += '<font style="color: blue;">' + students.Name + '</font>';
+        document.getElementById('Email').innerHTML += '<font style="color: blue;">' + students.Email + '</font>';;
+        document.getElementById('Gender').innerHTML += '<font style="color: blue;">' + students.Gender + '</font>';;
+        document.getElementById('Address').innerHTML += '<font style="color: blue;">' + students.Address + '</font>';;
         
         var values = students.Certification;
-        for(var i in values)
-            document.getElementById('certification').innerHTML +=   "<p style='color: blue;'>"+ values[i] + "</p>";
+        for(var i in values)    {
+            let index = parseInt(i)+1;
+            document.getElementById('certification').innerHTML +=   "<p style='color: blue;'>"+ index + ") " + values[i] + "</p>";
+        }
         values = students.SpAch;
-        for(var i in values)
-            document.getElementById('Spach').innerHTML += "<p style='color: blue;'>"+ values[i] + "</p>";
+        for(var i in values)    {
+            let index = parseInt(i)+1;
+            document.getElementById('Spach').innerHTML += "<p style='color: blue;'>"+ index + ") " +values[i] + "</p>";
+        }
     }
 </script>
 <script>
