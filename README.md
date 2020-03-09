@@ -12,6 +12,6 @@ Javascipt ES6 project
 
 Admin Login :
 
-Id: admin
+Id: **admin**
 
-Password: Admin@123
+Password: **Admin@123**
