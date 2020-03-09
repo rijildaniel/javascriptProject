@@ -12,6 +12,9 @@
     window.onload = function()  {
             studObj = new Student();
             var id = sessionStorage.getItem('sid');
+            if(id == undefined) {
+                window.location.href = 'StudentLogin.html';
+            }
             loadProfile(studObj.getRecord(id));
             document.getElementById('logout').addEventListener('click', function()  {
                 sessionStorage.clear();
@@ -132,7 +135,7 @@ return '<div class="input-group" style="margin-bottom: 5px;"><input type="text" 
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>                        
             </button>
-            <a class="navbar-brand" href="#">School Website</a>
+            <a class="navbar-brand" href="#">AISSMS College</a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar" style="font-weight: bold;">
             <ul class="nav navbar-nav navbar-right">

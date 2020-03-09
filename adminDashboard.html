@@ -14,15 +14,25 @@
   box-shadow: 0 0 0 1px #4dd0e1;
 }
   </style>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="./admin.build.js"></script>
 	<script>
 		window.onload	= function()	{
+      var id = sessionStorage.getItem('adminid');
+      if(id == undefined) {
+                window.location.href = 'AdminLogin.html';
+      }
       adminobj = new Admin();
       var students = adminobj.getStudent();      
       loadTable(students);
+
+      document.getElementById('logout').addEventListener('click', function()  {
+                sessionStorage.clear();
+                window.location.href = 'AdminLogin.html';
+            }, true);
 
       document.getElementById('search').addEventListener('keyup', function()  {
             var data = "";
@@ -32,10 +42,10 @@
             }
             else  {              
               if(document.getElementById('certOption').checked) {
-                  data = adminobj.search(this.value);
+                  data = adminobj.search(this.value.toLowerCase());
               }
               else  {
-                  data = adminobj.search(this.value, "spach");
+                  data = adminobj.search(this.value.toLowerCase(), "spach");
               }
               
               loadTable(data);
@@ -59,6 +69,9 @@
       if(!check)  
         alert('Put Unique Email ID');
       var data = adminobj.getStudent();
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('password').value = '';
       loadTable(data);
 
     }, true);
@@ -69,8 +82,9 @@
   
 
   function loadTable(students)  {
-      if(students.size == 0)
+      if(students.size == 0)  {
         return;
+      }
         document.getElementById('records').style.display = "block";
       document.getElementById('thead').innerHTML = "<th>Id</th><th>Name</th><th>Email</th><th>Password</th><th>Address</th><th>Gender</th><th>Certification</th><th>Special Achievement</th><th></th>";
       tr = "";
@@ -113,9 +127,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>                        
             </button>
-            <a class="navbar-brand" href="#">School Website</a>
+            <a class="navbar-brand" href="#">AISSMS College</a>
           </div>
-        </div>
+            <div class="collapse navbar-collapse" id="myNavbar" style="font-weight: bold;">
+              <ul class="nav navbar-nav navbar-right">
+                  <li><button id="logout"><span class="glyphicon glyphicon-log-in"></span> Logout</button></li>
+              </ul>
+          </div>
+          </div>
     </nav>
     <div class="container">
           <div class="form-group row">
@@ -151,26 +170,28 @@
               <input type="button" id="addstud" value="Add" class="btn btn-primary" />
             </div>
      	 </div>
-    </div>
-    <div class="container" id="records" style="margin-top: 30px; display: none;" >
-      <div class="custom-control custom-radio">
-        
-    </div>
-    <div>
-      <form class="form-inline active-cyan-3 active-cyan-4">
-        <i class="fas fa-search" aria-hidden="true"></i>
-        <input type="text" id="search" class="form-control form-control-md" style="float: right;" placeholder="Search" >
-        <label class="custom-control-label"><input type="radio" class="custom-control-input" name="selectOption"  id="certOption"  checked> Certification  </label>
-        <label class="custom-control-label"><input type="radio" class="custom-control-input" name="selectOption" id="spachOption" > Achievement  </label>
+
+      <div id="records" style="display: none;">
+      <form class="form-inline active-cyan-3 active-cyan-4" >
+        <div style="float: right; margin-bottom: 20px;">
+        <span class="glyphicon glyphicon-search"></span>
+        <input type="text" id="search" class="form-control form-control-md"  placeholder="Search" >
+        </div>
+        <div class="form-group" style="float: right; margin-right: 40px;">
+        <input type="radio" class="custom-control-input"   id="certOption" value="Certification"   name="selectOption" checked/>
+        <label class="custom-control-label" for="certOption"> Certification</label>
+        <input type="radio" class="custom-control-input"  id="spachOption" value="Achievements"  name="selectOption"/>
+        <label class="custom-control-label" for="spachOption">Achievement</label>
+      </div>
       </form>
-    </div>
-    <table class="table table-bordered text-center" style="margin-top: 50px;">
+    <table class="table table-bordered text-center" style="margin-top: 130px;">
       <thead id="thead">
         
       </thead>
       <tbody id="tbody">
       <tbody>
     </table>
-    </div>      
+    </div>
+  </div>
 </body>
 </html>

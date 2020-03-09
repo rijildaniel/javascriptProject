@@ -6,7 +6,7 @@ class Admin {
     }
     
     addStudent(student)    {
-        let id = student.Name.toLowerCase();
+        let id = student.Name.replace(/\s/g,'').toLowerCase();
         let students = new Map(JSON.parse(localStorage.getItem('Students')));
         let name = student.Name;
         let emailInput = student.Email;
@@ -58,11 +58,9 @@ class Admin {
         let students = new Map(JSON.parse(localStorage.getItem('Students')));
         let studentList = new Map();
         searchData.forEach((v,i) => {
-            if(i.startsWith(inputData))  {
+            if(i.toLowerCase().startsWith(inputData))  {
                 for(var j in v) {
-                    console.log(v[j]);
                     let data = students.get(v[j]);
-                    console.log(data);
                     studentList.set(v[j], data);
                 }
             }
