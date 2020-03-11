@@ -83,6 +83,7 @@
 
   function loadTable(students)  {
       if(students.size == 0)  {
+        document.getElementById('records').style.display = "none";
         return;
       }
         document.getElementById('records').style.display = "block";
@@ -113,7 +114,7 @@
     }
 
   function deleteSt(id) {
-        var students = adminobj.deleteStudent(id);
+        var students = adminobj.deleteStudent(id);        
         loadTable(students);
     }
   </script>
